@@ -1,0 +1,42 @@
+{% extends "system/index.html" %}
+
+{% block title %}
+<title>Ibs| Login</title>
+{% endblock title %}
+
+{% block landingpage %}
+{% endblock landingpage %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h4>{{ failed }}</h4>
+    <h2>Log-in</h2>
+    <form method="post" class="form-horizontal" role="form">
+    {% csrf_token %}
+      <div class="form-group">
+        <div class="col-sm-4">
+          <input type="email" name="email" class="form-control" placeholder=" myemail@example.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-4">          
+          <input type="password" class="form-control" placeholder=" password" name="password" required>
+        </div>
+      </div>
+      <div class="form-group">        
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-default" href="{% url "user_login" %}">Log in</button>
+        </div>
+      </div>
+
+      <div class="form-group">        
+        <div class="col-sm-4">
+         <p href="" style="font-size:16px">Not registered? <a href="{% url "user_add" %}">Sign up now</a></p>
+        </div>
+
+    </form>
+  </div>
+    
+</div>
+{% endblock content %}

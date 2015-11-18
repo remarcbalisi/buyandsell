@@ -1,0 +1,118 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.db import models
+from time import time
+from django.utils import timezone
+
+from django.contrib.auth.models import BaseUserManager
+
+# CUSTOM USER AUTH
+###############################################################################
+
+class UserManager(BaseUserManager):
+
+    def create_user(self, email, password, **kwargs):
+        user = self.model(
+            email=self.normalize_email(email),
+            is_active=True,
+            **kwargs
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password, **kwargs):
+        user = self.model(
+            email=email,
+            is_staff=True,
+            is_superuser=True,
+            is_active=True,
+            is_admin=True,
+            **kwargs
+        )
+        user.set_password(password)
+        user.save(using=self._db)
+        return UserManager
+
+class User(AbstractBaseUser, PermissionsMixin):
+    USERNAME_FIELD = 'email'
+
+    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=30, null=True, blank=True)
+    last_name = models.CharField(max_length=30, null=True, blank=True)
+    contact_number = models.CharField(max_length=30, null=True, blank=True)
+
+    is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+
+    def get_full_name(self):
+        return self.email
+    def get_short_name(self):
+        return self.email
+
+    objects = UserManager()
+
+###############################################################################
+###############################################################################
+###############################################################################
+###############################################################################
+
+class Type(models.Model):
+	name = models.CharField(max_length = 10)
+
+	def __str__(self):
+		return self.name
+
+#############################################################################
+#------- importing images---
+def generate_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    return 'uploads/' + str(int(time())) + '.' + ext
+
+class Image(models.Model):
+    title = models.CharField(max_length=255, null=True, blank=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
+    stuff_image = models.ImageField(upload_to=generate_filename)
+    item_id = models.ForeignKey('Item', null=True, blank=True)
+
+    def __unicode__(self):
+	   return self.title
+        
+    class Meta:
+        ordering = ['title']
+#----------------------------
+
+##############################################################################
+
+class Category(models.Model):
+	name = models.CharField(max_length = 50)
+
+	def __str__(self):
+		return self.name
+
+class Comment(models.Model):
+    title = models.CharField(max_length = 50)
+    comment = models.TextField(null=True)
+    item_id = models.ForeignKey('Item', blank=True, null=True)
+    post_comment = models.DateTimeField(blank = True, null = True)
+
+    def publish(self):
+        self.post_comment = timezone.now()
+        self.save()
+
+
+    def __str__(self):
+        return self.title
+
+
+class Item(models.Model):
+    name = models.CharField(max_length = 70)
+    description = models.TextField()
+    price = models.IntegerField()
+    category_id = models.ForeignKey('Category')
+    type_id = models.ForeignKey('Type', null=True, blank=True)
+    user_id = models.ForeignKey('User', null=True, blank=True)
+    post_date = models.DateTimeField(blank = True, null = True)
+
+    def __str__(self):
+        return self.name

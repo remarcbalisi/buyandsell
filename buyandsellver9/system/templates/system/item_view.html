@@ -1,0 +1,54 @@
+{% extends "system/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Item view</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+
+      <div class="row">
+        <div class="col-md-5">
+            <h1>
+                {{ item }}
+            </h1>
+
+            {% if item.type_id.name == 'Buy' %}
+              <h5>Status: Looking for</h5>
+              <h5>Category: {{ item.category_id }}</h5>
+              <h5>Posted: {{ item.post_date }}</h5>
+              <h5>Buyer: 
+                <a href="#">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+              </h5>
+              <h5>Budget: Php {{ item.price }}</h5>
+            {% endif %}
+
+            {% if item.type_id.name == 'Sell' %}
+              <h5>Status: {{ item.type_id }}</h5>
+              <h5>Category: {{ item.category_id }}</h5>
+              <h5>Posted: {{ item.post_date }}</h5>
+              <h5>Seller: 
+                <a href="#">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+              </h5>
+              <h5>Price: Php {{ item.price }}</h5>
+            {% endif %}
+
+            <h5>Contact #: {{ item.user_id.contact_number }}</h5>
+            <h5>Email: {{ item.user_id.email }}</h5><br>
+            <h5>Description:</h5>
+            <p>{{ item.description }}</p>
+        </div>
+
+        <div class="col-md-7">
+          {% if image.stuff_image %}
+            <p><img src="/static/images/{{ image.stuff_image }}" width="200" length="200"/></p>
+          {% endif %}
+        </div>
+
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

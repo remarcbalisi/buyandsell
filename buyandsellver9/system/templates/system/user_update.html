@@ -1,0 +1,74 @@
+{% extends "system/user_home.html" %}
+
+{% block title %}
+<title>Ibs| Update</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h2>Update Profile</h2>
+    <form method="POST" class="form-inline" role="form">
+        {% csrf_token %}
+      <div class="form-group">
+        <input name="fname" type="text" class="form-control" value="{{user.first_name}}" required>
+      </div>
+      <div class="form-group">
+        <input name="lname" type="text" class="form-control" value="{{user.last_name}}" required>
+      </div><br>
+      <div class="form-group">
+        <input name="email" type="email" class="form-control" value="{{user.email}}" required>
+      </div>
+      <div class="form-group">
+        <input name="contact_number" type="text" class="form-control" value="{{user.contact_number}}" required>
+      </div><br>
+      <div class="form-group">
+        <input name="password" type="password" class="form-control" placeholder=" password" id="pass1" required>
+      </div>
+
+      <div class="form-group">
+        <input name="password" type="password" class="form-control" placeholder=" re-enter password" id="pass2" onkeyup="checkPass(); return false;" required>
+      </div>
+      <span id="confirmMessage" class="confirmMessage"></span><br>
+      <button type="submit" class="btn btn-default">Update</button>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function checkPass(){
+      //Store the password field objects into variables ...
+      var pass1 = document.getElementById('pass1');
+      var pass2 = document.getElementById('pass2');
+      //Store the Confimation Message Object ...
+      var message = document.getElementById('confirmMessage');
+      //Set the colors we will be using ...
+      var goodColor = "#b6ffc7";
+      var goodColor_font = "#66cc66"
+      var badColor = "#ffdada";
+      var badColor_font = "#ff3f3f";
+      //Compare the values in the password field 
+      //and the confirmation field
+      if(pass1.value == pass2.value){
+          //The passwords match. 
+          //Set the color to the good color and inform
+          //the user that they have entered the correct password 
+          pass2.style.backgroundColor = goodColor;
+          message.style.color = goodColor_font;
+          message.innerHTML = "Passwords Match!"
+          document.getElementById("submit_button").disabled = false;
+      }
+
+      else{
+          //The passwords do not match.
+          //Set the color to the bad color and
+          //notify the user.
+          pass2.style.backgroundColor = badColor;
+          message.style.color = badColor_font;
+          message.innerHTML = "Passwords Do Not Match!"
+          document.getElementById("submit_button").disabled = true;
+      }
+    }
+</script>
+{% endblock content %}
