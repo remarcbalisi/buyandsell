@@ -8,7 +8,7 @@ from django.http import Http404
 def index(request):
 
 	if not request.user.is_authenticated():
-		return render(request, 'system/index.html')
+		return render(request, 'system/index2.html')
 
 	if request.user.is_authenticated():
 		return redirect('system.views.user_home')

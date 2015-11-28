@@ -1,42 +1,45 @@
-{% extends "system/index.html" %}
+{% extends "system/index2.html" %}
+{% load staticfiles %}
 
 {% block title %}
 <title>Ibs| Login</title>
 {% endblock title %}
 
-{% block landingpage %}
-{% endblock landingpage %}
-
 {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    <h4>{{ failed }}</h4>
-    <h2>Log-in</h2>
-    <form method="post" class="form-horizontal" role="form">
-    {% csrf_token %}
-      <div class="form-group">
-        <div class="col-sm-4">
-          <input type="email" name="email" class="form-control" placeholder=" myemail@example.com" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-4">          
-          <input type="password" class="form-control" placeholder=" password" name="password" required>
-        </div>
-      </div>
-      <div class="form-group">        
-        <div class="col-sm-2">
-          <button type="submit" class="btn btn-default" href="{% url "user_login" %}">Log in</button>
-        </div>
-      </div>
+    <section id="home-slider">
+        <div class="container">
+            <div class="row">
+                <div class="main-slider">
+                    <div class="slide-text">
+                        <h4>{{ failed }}</h4>
+                        <h2>Log-in</h2>
+                        <form method="post" class="form-inline" role="form">
+                        {% csrf_token %}
+                          <div class="form-group">
+                            <input type="email" name="email" class="form-control" placeholder=" myemail@example.com" required>
+                          </div><br>
+                          <div class="form-group">         
+                            <input type="password" class="form-control" placeholder=" password" name="password" required>
+                          </div><br>
+                          <div class="form-group">        
+                            <button type="submit" class="btn btn-common" id="submit_button" href="{% url "user_login" %}">Log in</button>
+                          </div><br>
+                          <div class="form-group">        
+                            <p href="" style="font-size:16px">Not registered? <a href="{% url "user_add" %}">Sign up now</a></p>
+                          </div>
+                        </form>
+                    </div>
 
-      <div class="form-group">        
-        <div class="col-sm-4">
-         <p href="" style="font-size:16px">Not registered? <a href="{% url "user_add" %}">Sign up now</a></p>
-        </div>
+                    <img src="{% static "ibsUIver2/images/home/slider/hill.png" %}" class="slider-hill" alt="slider image">
+                    <img src="{% static "ibsUIver2/images/home/slider/house.png" %}" class="slider-house" alt="slider image">
+                    <img src="{% static "ibsUIver2/images/home/slider/sun.png" %}" class="slider-sun" alt="slider image">
+                    <img src="{% static "ibsUIver2/images/home/slider/birds1.png" %}" class="slider-birds1" alt="slider image">
+                    <img src="{% static "ibsUIver2/images/home/slider/birds2.png" %}" class="slider-birds2" alt="slider image">
 
-    </form>
-  </div>
-    
-</div>
+                </div>
+            </div>
+        </div>
+        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
+    </section>
+    <!--/#home-slider-->
 {% endblock content %}

@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'buyandsellver9.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ibsdb6',
+        'NAME': 'ibsdb',
         'USER': 'postgres',
         'PASSWORD': 'remarc@15',
         'HOST': '127.0.0.1',
@@ -108,4 +108,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = "system.User"
 
-MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'system/static/images').replace('\\','/')
+MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'system/static/ibsUIver2/images/uploads').replace('\\','/')
