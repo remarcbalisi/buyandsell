@@ -52,11 +52,11 @@
                                 <li><a href="{% url "item_browse" %}">All Items</a></li>
                                 {% for type in types %}
 
-                                  {% if type.name = "Buy" %}
+                                  {% if type.name == "Buy" %}
                                     <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">Looking For</a></li>
                                   {% endif %}
 
-                                  {% if type.name = "Sell" %}
+                                  {% if type.name == "Sell" %}
                                     <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">For Sale</a></li>
                                   {% endif %}
 
@@ -72,7 +72,8 @@
                         </li>
                         <li class="dropdown"><a href="portfolio.html">{{user.first_name}} {{ user.last_name }}<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                              <li><a href="{% url 'user_view' user_pk=user.pk%}">Profile</a></li>
+                              <li><a href="{% url 'user_view' user_pk=user.pk%}">View Profile</a></li>
+                              <li><a href="{% url "user_update" %}">Edit Profile</a></li>
                               <li><a href="{% url "user_logout" %}">Log out</a></li>           
                             </ul>
                         </li>                       
