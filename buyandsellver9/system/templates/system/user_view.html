@@ -9,10 +9,8 @@
 
 {% block content %}
 <div class="container">
-  <div class="jumbotron">
-    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-    <p>Emai address: {{ user.email }}</p>
-    <p>contact number: {{ user.contact_number }}</p>
-  </div>
+    <h1>{{ user_view_pk.first_name }} {{ user_view_pk.last_name }}</h1>
+    <p>Emai address: {{ user_view_pk.email }}</p>
+    <p>contact number: {{ user_view_pk.contact_number }}</p>
 </div>
 {% endblock content %}

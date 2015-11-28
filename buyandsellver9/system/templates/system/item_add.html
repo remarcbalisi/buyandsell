@@ -10,7 +10,6 @@
 
 {% block content %}
 <div class="container">
-  <div class="jumbotron">
     <h2>{{ post_type }} item</h2>
     <form method="POST" class="form-inline" enctype="multipart/form-data">
       {% csrf_token %}
@@ -36,6 +35,5 @@
       </div><br>
       <button type="submit" class="btn btn-default">Post</button>
     </form>
-  </div>
 </div>
 {% endblock content %}

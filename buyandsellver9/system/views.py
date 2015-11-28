@@ -107,17 +107,18 @@ def user_home(request):
 	if not request.user.is_authenticated():
 		return redirect('system.views.user_login')
 
-def user_view(request):
+def user_view(request, user_pk):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
+		user_view_pk = User.objects.get(pk=user_pk)
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
 
 		elif not user.is_admin:
 			types = Type.objects.all()
-			return render(request, 'system/user_view.html', {'user': user, 'types': types})
+			return render(request, 'system/user_view.html', {'user': user,'user_view_pk':user_view_pk, 'types': types})
 
 	if not request.user.is_authenticated():
 		return redirect('system.views.user_login')

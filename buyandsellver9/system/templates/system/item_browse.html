@@ -12,18 +12,14 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-6">
-                <h1 class="page-header">BUY
-                </h1>
-            </div>
-
-            <div class="col-lg-6">
-                <h1 class="page-header">Sell
+                <h1 class="page-header">BROWSE ITEMS
                 </h1>
             </div>
         </div>
         <!-- /.row -->
 
         <!-- Project One -->
+        {% for item in items %}
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
@@ -31,13 +27,14 @@
                 </a>
             </div>
             <div class="col-md-5">
-                <h3>Project One</h3>
+                <h3>{{ item }}</h3>
                 <h4>Subheading</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
                 <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
         <!-- /.row -->
+        {% endfor %}
 
         <hr>
 

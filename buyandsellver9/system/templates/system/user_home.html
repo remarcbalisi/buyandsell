@@ -52,28 +52,23 @@
                                 <li><a href="coming-soon.html">Coming Soon</a></li>
                             </ul>
                         </li>                    
-                        <li class="dropdown"><a href="blog.html">Blog <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="blog.html">BROWSE <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="blog.html">Blog Default</a></li>
-                                <li><a href="blogtwo.html">Timeline Blog</a></li>
-                                <li><a href="blogone.html">2 Columns + Right Sidebar</a></li>
-                                <li><a href="blogthree.html">1 Column + Left Sidebar</a></li>
-                                <li><a href="blogfour.html">Blog Masonary</a></li>
-                                <li><a href="blogdetails.html">Blog Details</a></li>
+                                <li><a href="{% url "item_browse" %}">All Items</a></li>
+                                <li><a href="blogtwo.html">For Sale</a></li>
+                                <li><a href="blogone.html">Looking For</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown"><a href="portfolio.html">Portfolio <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="portfolio.html">BUY/SELL <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="portfolio.html">Portfolio Default</a></li>
-                                <li><a href="portfoliofour.html">Isotope 3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfolioone.html">3 Columns + Right Sidebar</a></li>
-                                <li><a href="portfoliotwo.html">3 Columns + Left Sidebar</a></li>
-                                <li><a href="portfoliothree.html">2 Columns</a></li>
-                                <li><a href="portfolio-details.html">Portfolio Details</a></li>
+                              {% for type in types %}
+                                <li><a href="{% url 'item_add' type_pk=type.pk %}">{{ type }} Items</a></li>
+                              {% endfor %}
                             </ul>
                         </li>
                         <li class="dropdown"><a href="portfolio.html">{{user.first_name}} {{ user.last_name }}<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
+                              <li><a href="{% url 'user_view' user_pk=user.pk%}">Profile</a></li>
                               <li><a href="{% url "user_logout" %}">Log out</a></li>           
                             </ul>
                         </li>                       
