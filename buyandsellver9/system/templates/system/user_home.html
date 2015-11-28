@@ -40,23 +40,27 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="active"><a href="{% url "index" %}">Home</a></li>
-                        <li class="dropdown"><a href="#">Pages <i class="fa fa-angle-down"></i></a>
+                        <li class="dropdown"><a href="#">Inventory <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="aboutus.html">About</a></li>
-                                <li><a href="aboutus2.html">About 2</a></li>
-                                <li><a href="service.html">Services</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li><a href="contact.html">Contact us</a></li>
-                                <li><a href="contact2.html">Contact us 2</a></li>
-                                <li><a href="404.html">404 error</a></li>
-                                <li><a href="coming-soon.html">Coming Soon</a></li>
+                                <li><a href="{% url 'item_of_user' %}">My Posts</a></li>
+                                <li><a href="aboutus.html">Manage Posts</a></li>
+                                <li><a href="aboutus.html">Marked Posts</a></li>
                             </ul>
                         </li>                    
                         <li class="dropdown"><a href="blog.html">BROWSE <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
                                 <li><a href="{% url "item_browse" %}">All Items</a></li>
-                                <li><a href="blogtwo.html">For Sale</a></li>
-                                <li><a href="blogone.html">Looking For</a></li>
+                                {% for type in types %}
+
+                                  {% if type.name = "Buy" %}
+                                    <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">Looking For</a></li>
+                                  {% endif %}
+
+                                  {% if type.name = "Sell" %}
+                                    <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">For Sale</a></li>
+                                  {% endif %}
+
+                                {% endfor %}
                             </ul>
                         </li>
                         <li class="dropdown"><a href="portfolio.html">BUY/SELL <i class="fa fa-angle-down"></i></a>
@@ -113,7 +117,7 @@
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
                         <p>&copy; Iligan Buy and Sell 2015. All Rights Reserved.</p>
-                        <p>Designed by <a target="_blank" href="http://www.themeum.com">Themeum</a></p>
+                        <p>Designed by <a target="_blank" href="http://www.themeum.com">Lepre Chaun</a></p>
                     </div>
                 </div>
             </div>

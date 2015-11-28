@@ -13,7 +13,6 @@ urlpatterns = [
     url(r'^ibs/home/post/(?P<type_pk>[0-9]+)/$', views.item_add, name='item_add'),
     url(r'^ibs/home/browse/$', views.item_browse, name='item_browse'),
     url(r'^ibs/home/browse/(?P<type_pk>[0-9]+)/$', views.item_browse_bytype, name='item_browse_bytype'),
-    url(r'^ibs/home/browse/(?P<category_pk>[0-9]+)/$', views.item_browse_bycategory, name='item_browse_bycategory'),
     url(r'^ibs/home/viewitem/(?P<item_pk>[0-9]+)/$', views.item_view, name='item_view'),
     url(r'^ibs/home/myitem/$', views.item_of_user, name='item_of_user'),
 ]

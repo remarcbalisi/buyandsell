@@ -21,24 +21,31 @@
         <!-- Project One -->
         {% for item in items %}
         <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-responsive" src="http://placehold.it/700x300" alt="">
-                </a>
+
+            <div class="col-md-12">
+              <a class="" href="#">
+
+                <h3>{{ item }} (Type: {{ item.type_id.name }})
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </h3>
+
+              </a>
+
+                {% if item.type_id.name == "Buy" %}
+                <p>Budget: {{ item.price }}</p>
+                {% endif %}
+
+                {% if item.type_id.name == "Sell" %}
+                <p>Price: {{ item.price }}</p>
+                {% endif %}
+                
             </div>
-            <div class="col-md-5">
-                <h3>{{ item }}</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
+
         </div>
         <!-- /.row -->
+        <hr>
         {% endfor %}
 
-        <hr>
-
-        <hr>
 
         <!-- Pagination -->
         <div class="row text-center">
@@ -69,8 +76,6 @@
             </div>
         </div>
         <!-- /.row -->
-
-        <hr>
 
     </div>
     <!-- /.container -->

@@ -218,7 +218,7 @@ def item_browse(request):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
-		items = Item.objects.all().order_by('-post_date')
+		items = Item.objects.all().order_by('post_date')
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
@@ -232,18 +232,12 @@ def item_browse(request):
 	if not request.user.is_authenticated():
 		return redirect('system.views.user_login')
 
-def item_browse_bycategory(request, category_pk):
-	categories = get_object_or_404(Category, pk=category_pk)
-	return categories
 
 def item_browse_bytype(request, type_pk):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
-		items = Item.objects.all().filter(type_id=type_pk).order_by('-post_date')
-
-		if item_browse_bycategory(request, 1) is not None:
-			items.filter(category_id=item_browse_bycategory(request, 1))
+		items = Item.objects.all().filter(type_id=type_pk).order_by('post_date')
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
