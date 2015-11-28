@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
-from .models import User, Item, Type, Image, Category
+from .models import User, Item, Type, Image, Category, Comment
 
 # DISPLAYING IN DJANGO ADMIN
 ##########################################################################
@@ -94,3 +94,4 @@ admin.site.register(Item)
 admin.site.register(Type)
 admin.site.register(Image)
 admin.site.register(Category)
+admin.site.register(Comment)

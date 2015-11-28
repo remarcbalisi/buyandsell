@@ -1,5 +1,5 @@
 from django import forms
-from .models import User, Item, Type, Image, Category
+from .models import User, Item, Type, Image, Category, Comment
 
 class UserForm(forms.ModelForm):
 
@@ -18,3 +18,9 @@ class ImageForm(forms.ModelForm):
 	class Meta:
 		model = Image
 		fields = ['title', 'stuff_image', 'item_id']
+
+class CommentForm(forms.ModelForm):
+
+	class Meta:
+		model = Comment
+		fields = ['comment']

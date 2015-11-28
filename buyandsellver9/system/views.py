@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserForm, ItemForm, ImageForm
-from .models import User, Item, Type, Image, Category
+from .forms import UserForm, ItemForm, ImageForm, CommentForm
+from .models import User, Item, Type, Image, Category, Comment
 from django.http import Http404
 
 def index(request):
@@ -256,7 +256,28 @@ def item_view(request, item_pk):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
+		users = User.objects.all()
 		item = get_object_or_404(Item, pk=item_pk)
+		comments = Comment.objects.all().filter(item_id=item_pk).order_by('-post_comment')
+
+		if request.method == 'POST':
+			form = CommentForm(request.POST)
+			print "request is post"
+
+			if form.is_valid():
+				comment = form.save()
+				comment.save()
+				comment.item_id = item
+				comment.user_id = user
+				comment.publish()
+				comment.save()
+
+				types = Type.objects.all()
+				image = get_object_or_404(Image, item_id=item_pk)
+				return render(request, 'system/item_view.html', {'user': user, 'types': types, 
+															 	 'item': item, 'image': image,
+															 	 'comments': comments,
+															 	 'users': users})
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
@@ -265,7 +286,9 @@ def item_view(request, item_pk):
 			types = Type.objects.all()
 			image = get_object_or_404(Image, item_id=item_pk)
 			return render(request, 'system/item_view.html', {'user': user, 'types': types, 
-															 'item': item, 'image': image})
+															 'item': item, 'image': image,
+															 'comments': comments,
+															 'users': users})
 
 	if not request.user.is_authenticated():
 		return redirect('system.views.user_login')

@@ -91,9 +91,9 @@ class Category(models.Model):
 		return self.name
 
 class Comment(models.Model):
-    title = models.CharField(max_length = 50)
     comment = models.TextField(null=True)
     item_id = models.ForeignKey('Item', blank=True, null=True)
+    user_id = models.ForeignKey('User', blank=True, null=True)
     post_comment = models.DateTimeField(blank = True, null = True)
 
     def publish(self):
@@ -102,7 +102,7 @@ class Comment(models.Model):
 
 
     def __str__(self):
-        return self.title
+        return self.user_id
 
 
 class Item(models.Model):
