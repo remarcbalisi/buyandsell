@@ -32,11 +32,11 @@
               </a>
 
                 {% if item.type_id.name == "Buy" %}
-                <p>Budget: {{ item.price }}</p>
+                <p>Budget: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
                 {% endif %}
 
                 {% if item.type_id.name == "Sell" %}
-                <p>Price: {{ item.price }}</p>
+                <p>Price: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
                 {% endif %}
                 
             </div>

@@ -218,7 +218,7 @@ def item_browse(request):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
-		items = Item.objects.all().order_by('post_date')
+		items = Item.objects.all().order_by('-post_date')
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
@@ -237,7 +237,7 @@ def item_browse_bytype(request, type_pk):
 
 	if request.user.is_authenticated():
 		user = User.objects.get(pk=request.user.id)
-		items = Item.objects.all().filter(type_id=type_pk).order_by('post_date')
+		items = Item.objects.all().filter(type_id=type_pk).order_by('-post_date')
 
 		if user.is_admin:
 			return HttpResponse("You're an Admin")
