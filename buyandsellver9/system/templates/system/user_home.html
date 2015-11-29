@@ -72,7 +72,8 @@
                         </li>
                         <li class="dropdown"><a href="portfolio.html">{{user.first_name}} {{ user.last_name }}<i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                              <li><a href="{% url 'user_view' user_pk=user.pk%}">Profile</a></li>
+                              <li><a href="{% url 'user_view' user_pk=user.pk%}">View Profile</a></li>
+                              <li><a href="{% url "user_update" %}">Update Profile</a></li>
                               <li><a href="{% url "user_logout" %}">Log out</a></li>           
                             </ul>
                         </li>                       
@@ -117,7 +118,7 @@
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
                         <p>&copy; Iligan Buy and Sell 2015. All Rights Reserved.</p>
-                        <p>Designed by <a target="_blank" href="http://www.themeum.com">Lepre Chaun</a></p>
+                        <p>Designed by <a target="_blank" href="https://www.facebook.com/rem.leprechaun">Lepre Chaun</a></p>
                     </div>
                 </div>
             </div>
