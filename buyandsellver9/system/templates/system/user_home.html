@@ -1,128 +1,139 @@
-{% extends "system/index2.html" %}
+{% extends "system/index3.html" %}
 {% load staticfiles %}
 
 {% block title %}
 <title>Ibs| Home</title>
 {% endblock title %}
 
-    {% block header %}
-  <header id="header">      
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 overflow">
-                   <div class="social-icons pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div> 
-                </div>
-             </div>
-        </div>
-        <div class="navbar navbar-inverse" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html">Iligan Buy and Sell Admin </a>
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-cog"></i> Account <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;">Settings</a></li>
+              <li><a href="javascript:;">Help</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-user"></i> {{user.first_name}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;">Profile</a></li>
+              <li><a href="javascript:;">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-search pull-right">
+          <input type="text" class="search-query" placeholder="Search">
+        </form>
+      </div>
+      <!--/.nav-collapse --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /navbar-inner --> 
+</div>
+<!-- /navbar -->
 
-                    <a class="navbar-brand" href="{% url "index" %}">
-                      <h1><img src="{% static "ibsUIver2/images/ibs_logo2.png" %}" alt="logo"></h1>
-                    </a>
-                    
-                </div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="active"><a href="{% url "index" %}">Home</a></li>
-                        <li class="dropdown"><a href="{% url 'item_of_user' %}">Inventory <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="{% url 'item_of_user' %}">My Posts</a></li>
-                                <li><a href="#">Manage Posts</a></li>
-                                <li><a href="#">Marked Posts</a></li>
-                            </ul>
-                        </li>                    
-                        <li class="dropdown"><a href="{% url "item_browse" %}">BROWSE <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                                <li><a href="{% url "item_browse" %}">All Items</a></li>
-                                {% for type in types %}
-
-                                  {% if type.name = "Buy" %}
-                                    <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">Looking For</a></li>
-                                  {% endif %}
-
-                                  {% if type.name = "Sell" %}
-                                    <li><a href="{% url 'item_browse_bytype' type_pk=type.pk %}">For Sale</a></li>
-                                  {% endif %}
-
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="#">BUY/SELL <i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                              {% for type in types %}
-                                <li><a href="{% url 'item_add' type_pk=type.pk %}">{{ type }} Items</a></li>
-                              {% endfor %}
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a href="{% url 'user_view' user_pk=user.pk%}">{{user.first_name}} {{ user.last_name }}<i class="fa fa-angle-down"></i></a>
-                            <ul role="menu" class="sub-menu">
-                              <li><a href="{% url 'user_view' user_pk=user.pk%}">View Profile</a></li>
-                              <li><a href="{% url "user_update" %}">Update Profile</a></li>
-                              <li><a href="{% url "user_logout" %}">Log out</a></li>           
-                            </ul>
-                        </li>                       
-                    </ul>
-                </div>
-                <div class="search">
-                    <form role="form">
-                        <i class="fa fa-search"></i>
-                        <div class="field-toggle">
-                            <input type="text" class="search-form" autocomplete="off" placeholder="Search">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!--/#header-->
-    {% endblock header %}
+<div class="subnavbar">
+  <div class="subnavbar-inner">
+    <div class="container">
+      <ul class="mainnav">
+        <li class="active"><a href="index.html"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
+        <li><a href="reports.html"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>
+      </ul>
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /subnavbar-inner --> 
+</div>
+<!-- /subnavbar -->
+{% endblock navbar %}
 
 {% block content %}
-        <!-- Page Content -->
-            <div class="container">
-                <div class="row">
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
 
-                    <div class="col-lg-12">
-                        <h1>Welcome {{ user.first_name}} {{ user.last_name}}</h1>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old..</p>
-                    </div>
-                </div>
+        <div class="span6">
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> Today's Stats</h3>
             </div>
-{% endblock content %}
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <div id="big_stats" class="cf">
+                    <div class="stat"> <i class="icon-user"></i> <span class="value">{{user_count}}</span> </div>
+                    <!-- .stat -->
 
-{% block footer %}
-    <footer id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 text-center bottom-separator">
-                    <img src="{% static "ibsUIver2/images/home/under.png" %}" class="img-responsive inline" alt="">
+                    
+                    <div class="stat"> <i class="icon-bullhorn"></i> <span class="value">{{post_count}}</span> </div>
+                    <!-- .stat --> 
+                  </div>
                 </div>
-
-                <div class="col-sm-12">
-                    <div class="copyright-text text-center">
-                        <p>&copy; Iligan Buy and Sell 2015. All Rights Reserved.</p>
-                        <p>Designed by <a target="_blank" href="https://www.facebook.com/rem.leprechaun">Lepre Chaun</a></p>
-                    </div>
-                </div>
+                <!-- /widget-content --> 
+                
+              </div>
             </div>
+          </div>
+          <!-- /widget -->
+
         </div>
-    </footer>
-    <!--/#footer-->
-{% endblock footer %}
+        <!-- /span6 -->
+        <div class="span6">
+          <div class="widget">
+            <div class="widget-header"> <i class="icon-bookmark"></i>
+              <h3>Important Shortcuts</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
+                                        class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
+                                            class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
+                                                class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
+                                                    class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
+              <!-- /shortcuts --> 
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> Recent News</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">29</span> <span class="news-item-month">Aug</span> </div>
+                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">Thursday Roundup # 40</a>
+                    <p class="news-item-preview"> This is our web design and development news series where we share our favorite design/development related articles, resources, tutorials and awesome freebies. </p>
+                  </div>
+                  
+                </li>
+               {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+{% endblock content %}

@@ -4,12 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import UserForm, ItemForm, ImageForm, CommentForm
 from .models import User, Item, Type, Image, Category, Comment
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
-
-	if not request.user.is_authenticated():
-		return render(request, 'system/index2.html')
-
 	if request.user.is_authenticated():
 		return redirect('system.views.user_home')
 
@@ -95,7 +93,13 @@ def user_home(request):
 
 		#if user is an admin
 		if user.is_admin:
-			return HttpResponse("You're an Admin")
+			types = Type.objects.all()
+			categories = Category.objects.all()
+			user_count = User.objects.all().count()
+			post_count = Item.objects.all().count()
+			items = Item.objects.all()
+			return render(request, 'system/user_home.html', {'user': user, 'types': types,
+															 'categories': categories, 'user_count':user_count, 'post_count':post_count, 'items':items})
 
 		#if user is not an admin.
 		elif not user.is_admin:
