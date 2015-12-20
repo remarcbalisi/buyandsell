@@ -50,13 +50,18 @@ def user_add(request):
 
 			return redirect('system.views.user_login')
 
-		else:
-			form = UserForm()
-	except:
-		form = UserForm()
-		return render(request, 'system/user_add.html', {'form': form})
+		elif request.user.is_authenticated() and request.user.is_admin:
+			return render(request, 'system/user_add.html')
 
-	return render(request, 'system/user_add.html', {'form': form})
+		elif not request.user.is_authenticated():
+			return render(request, 'system/user_add.html')
+
+		else:
+			return render(request, 'system/error.html')
+
+	except:
+		exist = "Email already exist!"
+		return render(request, 'system/user_add.html', {'exist':exist})
 
 def user_login(request):
 
@@ -123,37 +128,36 @@ def user_view(request, user_pk):
 	if not request.user.is_authenticated():
 		return redirect('system.views.user_login')
 
+@login_required
 def user_update(request):
 
-	if request.user.is_authenticated():
-		user = User.objects.get(pk=request.user.id)
+	user = User.objects.get(pk=request.user.id)
 
-		if request.method == 'POST':
+	if request.method == 'POST':
 
-			form = UserForm(request.POST, instance=user)
+		form = UserForm(request.POST, instance=user)
 
-			fname = request.POST['fname']
-			lname = request.POST['lname']
-			contact_number = request.POST['contact_number']
-			email = request.POST['email']
-			password = request.POST['password']
+		fname = request.POST['fname']
+		lname = request.POST['lname']
+		contact_number = request.POST['contact_number']
+		email = request.POST['email']
+		password = request.POST['password']
 
-			if form.is_valid():
-				user.first_name = fname
-				user.last_name = lname
-				user.contact_number = contact_number
-				user.email = email
-				user.set_password(password)
-				user.save()
-				return redirect('system.views.user_home')
-			else:
-				raise Http404
+		if form.is_valid():
+			user.first_name = fname
+			user.last_name = lname
+			user.contact_number = contact_number
+			user.email = email
+			user.set_password(password)
+			user.save()
+			return redirect('system.views.user_home')
 		else:
-			form = UserForm(instance=user)
-			types = Type.objects.all()
-			return render(request, 'system/user_update.html', {'user': user, 'types': types})
+			raise Http404
+	else:
+		form = UserForm(instance=user)
+		types = Type.objects.all()
+		return render(request, 'system/user_update.html', {'user': user, 'types': types})
 
-	return redirect('system.views.user_login')
 
 #######################USER###############################################################
 #######################USER###############################################################
