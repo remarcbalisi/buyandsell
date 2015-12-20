@@ -107,5 +107,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = "system.User"
+LOGIN_URL='system.views.user_login'
 
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '..', 'system/static/ibsUIver2/images/uploads').replace('\\','/')

@@ -4,12 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import UserForm, ItemForm, ImageForm, CommentForm
 from .models import User, Item, Type, Image, Category, Comment
 from django.http import Http404
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def index(request):
-
-	if not request.user.is_authenticated():
-		return render(request, 'system/index2.html')
-
 	if request.user.is_authenticated():
 		return redirect('system.views.user_home')
 
@@ -88,24 +86,26 @@ def user_logout(request):
 # if successfully log in, this function is called.
 # the user is either admin or not admin
 # different view for admin and not admin
+@login_required
 def user_home(request):
+	user = User.objects.get(pk=request.user.id)
 
-	if request.user.is_authenticated():
-		user = User.objects.get(pk=request.user.id)
+	#if user is an admin
+	if user.is_admin:
+		types = Type.objects.all()
+		categories = Category.objects.all()
+		user_count = User.objects.all().count()
+		post_count = Item.objects.all().count()
+		items = Item.objects.all()
+		return render(request, 'system/user_home.html', {'user': user, 'types': types,
+														 'categories': categories, 'user_count':user_count, 'post_count':post_count, 'items':items})
 
-		#if user is an admin
-		if user.is_admin:
-			return HttpResponse("You're an Admin")
-
-		#if user is not an admin.
-		elif not user.is_admin:
-			types = Type.objects.all()
-			categories = Category.objects.all()
-			return render(request, 'system/user_home.html', {'user': user, 'types': types,
-															 'categories': categories})
-
-	if not request.user.is_authenticated():
-		return redirect('system.views.user_login')
+	#if user is not an admin.
+	elif not user.is_admin:
+		types = Type.objects.all()
+		categories = Category.objects.all()
+		return render(request, 'system/user_home.html', {'user': user, 'types': types,
+														 'categories': categories})
 
 def user_view(request, user_pk):
 

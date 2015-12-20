@@ -1,0 +1,506 @@
+{% load staticfiles %}
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]><html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta name="author" content="ThemeFuse">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{% block title %}
+<title>IBS | Index</title>
+{% endblock title %}
+
+<!-- main JS libs -->
+<script src="{% static "metrovibesUI/js/libs/modernizr.min.js" %}"></script>
+<script src="{% static "metrovibesUI/js/libs/jquery-1.10.0.js" %}"></script>
+<script src="{% static "metrovibesUI/js/libs/jquery-ui.min.js" %}"></script>
+<script src="{% static "metrovibesUI/js/libs/bootstrap.min.js" %}"></script>
+
+<!-- Style CSS -->
+<link href="{% static "metrovibesUI/css/bootstrap.css" %}" media="screen" rel="stylesheet">
+<link href="{% static "metrovibesUI/style.css" %}" media="screen" rel="stylesheet">
+
+<!-- scripts -->
+<script src="{% static "metrovibesUI/js/general.js" %}"></script>
+
+<!-- custom input -->
+<script src="{% static "metrovibesUI/js/jquery.customInput.js" %}"></script>
+<script type="text/javascript" src="{% static "metrovibesUI/js/custom.js" %}"></script>
+<!-- Placeholders -->
+<script type="text/javascript" src="{% static "metrovibesUI/js/jquery.powerful-placeholder.min.js" %}"></script>
+<!-- Progress Bars -->
+<script src="{% static "metrovibesUI/js/progressbar.js" %}"></script>
+<!-- Calendar -->
+<link href="{% static "metrovibesUI/css/jquery-ui-1.8.20.custom.css" %}" rel="stylesheet">
+<script src="{% static "metrovibesUI/js/jquery-ui.multidatespicker.js" %}"></script>
+<!-- Graph Builder -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Media', 'GB'],
+            ['Audio', 1100],
+            ['Video', 460],
+            ['Photo', 340],
+            ['Other', 100]
+        ]);
+
+        var options = {
+            pieHole: 0.4,
+            legend: 'none',
+            pieSliceText: 'none',
+            width: 220,
+            height: 220,
+            slices: {0: {color: '#4daf7b'}, 1: {color: '#e6623d'}, 2: {color: '#ebc85e'}, 3: {color: '#f4ede7'}},
+            chartArea:{left:"10px", top:"10px", width:"92%", height:"92%"}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+
+        var data2 = google.visualization.arrayToDataTable([
+            ['Month', 'Traffic'],
+            ['June',  1100],
+            ['July',  1580],
+            ['August',  1300],
+            ['September',  1430]
+        ]);
+
+        var options2 = {
+            width: 220,
+            height: 220,
+            legend: 'none',
+            colors: ['#4daf7b'],
+            chartArea:{left:0, top:0, width:"100%", height:"100%"},
+            hAxis:{textPosition:"none", gridlines:{color:"#fff"}, baselineColor:"#4daf7b"},
+            vAxis:{textPosition:"none", gridlines:{color:"#fff"}, baselineColor:"#4daf7b"}
+        };
+
+        var chart2 = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+        chart2.draw(data2, options2);
+    }
+</script>
+<!-- range sliders -->
+<script src="{% static "metrovibesUI/js/jquery.slider.bundle.js" %}"></script>
+<script src="{% static "metrovibesUI/js/jquery.slider.js" %}"></script>
+<link rel="stylesheet" href="{% static "metrovibesUI/css/jslider.css" %}">
+<!-- Video Player -->
+<link href="{% static "metrovibesUI/css/video-js.css" %}" rel="stylesheet">
+<script src="{% static "metrovibesUI/js/video.js" %}"></script>
+<!-- Audio Player -->
+<link href="{% static "metrovibesUI/css/jplayer.css" %}" rel="stylesheet">
+<script src="{% static "metrovibesUI/js/jquery.jplayer.min.js" %}"></script>
+<script src="{% static "metrovibesUI/js/jplayer.playlist.min.js" %}"></script>
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function(){
+
+        new jPlayerPlaylist({
+            jPlayer: "#jquery_jplayer_1",
+            cssSelectorAncestor: "#jp_container_1"
+        }, [
+            {
+                title:"<div class='item-song'>He lives in you, he lives in me</div><div class='item-artist'>Elton John, Hans Zimmer</div><img src='images/temp/music-player4.jpg' alt='' />",
+                mp3:"http://www.jplayer.org/audio/mp3/TSP-05-Your_face.mp3",
+                oga:"http://www.jplayer.org/audio/ogg/TSP-05-Your_face.ogg"
+            },
+            {
+                title:"<div class='item-song'>I saw you dancing</div><div class='item-artist'>Yaki Da</div><img src='images/temp/music-player5.jpg' alt='' />",
+                mp3:"http://www.jplayer.org/audio/mp3/TSP-07-Cybersonnet.mp3",
+                oga:"http://www.jplayer.org/audio/ogg/TSP-07-Cybersonnet.ogg"
+            },
+            {
+                title:"<div class='item-song'>Sands of Time</div><div class='item-artist'>Pandora</div><img src='images/temp/music-player6.jpg' alt='' />",
+                mp3:"http://www.jplayer.org/audio/mp3/Miaow-07-Bubble.mp3",
+                oga:"http://www.jplayer.org/audio/ogg/Miaow-07-Bubble.ogg"
+            }
+        ], {
+            swfPath: "js",
+            supplied: "oga, mp3",
+            wmode: "window",
+            smoothPlayBar: false,
+            keyEnabled: false
+        });
+    });
+    //]]>
+</script>
+
+<!-- Scroll Bars -->
+<script src="{% static "metrovibesUI/js/jquery.mousewheel.js" %}"></script>
+<script src="{% static "metrovibesUI/js/jquery.jscrollpane.min.js" %}"></script>
+<script type="text/javascript">
+	jQuery(function()
+	{
+		jQuery('.scrollbar').jScrollPane({
+			verticalDragMaxHeight: 9,
+			verticalDragMinHeight:9
+		});
+
+		jQuery('.scrollbar.scrollbar-yellow').jScrollPane({
+			verticalDragMaxHeight: 20,
+			verticalDragMinHeight:20
+		});
+
+		jQuery('.scrollbar.scrollbar-red').jScrollPane({
+			verticalDragMaxHeight: 5,
+			verticalDragMinHeight:5
+		});
+
+		jQuery('.scrollbar.scrollbar-blue').jScrollPane({
+			verticalDragMaxHeight: 50,
+			verticalDragMinHeight:50
+		});
+	});
+</script>
+
+<!--[if lt IE 9]><script src="js/respond.min.js"></script><![endif]-->
+<!--[if gte IE 9]>
+<style type="text/css">
+    .gradient {filter: none !important;}
+</style>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="container container-wide">
+
+<!-- content -->
+<div class="content " role="main">
+<!-- row -->
+<div class="row">
+<div class="col-sm-8">
+{% block navbar %}
+<!-- Website Menu -->
+<div id="topmenu">
+    <ul class="dropdown clearfix boxed">
+<!--         1 pinpoint, 2 heart, 3 man, 4 geart, 5 man in circle, 6 pencil-->
+        <li class="menu-level-0"><a href="#"><i class="icon-menu icon-menu1"></i><span>Home</span></a> </li>
+        <li class="menu-level-0"><a href="#"><i class="icon-menu icon-menu2"></i><span>Browse</span></a>
+            <ul class="submenu-1">
+                <li class="menu-level-1"><a href="#">All items</a></li>
+                <li class="menu-level-1"><a href="#">Buy</a>
+                    <ul class="submenu-2">
+                        <li class="menu-level-2"><a href="#">Gallery images</a></li>
+                        <li class="menu-level-2"><a href="#">Fine Slider</a></li>
+                        <li class="menu-level-2"><a href="#">Video in header</a></li>
+                        <li class="menu-level-2"><a href="#">Video Slider</a>
+                            <ul class="submenu-3">
+                                <li class="menu-level-3"><a href="#">Item 1</a></li>
+                                <li class="menu-level-3"><a href="#">Item 2</a></li>
+                                <li class="menu-level-3"><a href="#">Item 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-level-1"><a href="#">Sell</a>
+                    <ul class="submenu-2">
+                        <li class="menu-level-2"><a href="#">Gallery images</a></li>
+                        <li class="menu-level-2"><a href="#">Fine Slider</a></li>
+                        <li class="menu-level-2"><a href="#">Video in header</a></li>
+                        <li class="menu-level-2"><a href="#">Video Slider</a>
+                            <ul class="submenu-3">
+                                <li class="menu-level-3"><a href="#">Item 1</a></li>
+                                <li class="menu-level-3"><a href="#">Item 2</a></li>
+                                <li class="menu-level-3"><a href="#">Item 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-level-0"><a href="{% url "user_login" %}"><i class="icon-menu icon-menu3"></i><span>Login</span></a></li>
+        <li class="menu-level-0"><a href="{% url "user_add" %}"><i class="icon-menu icon-menu5"></i><span>Register</span></a></li>
+    </ul>
+</div>
+<!--/ Website Menu -->
+{% endblock navbar %}
+
+{% block content %}
+<!-- row browse items buy and sell -->
+<div class="row">
+
+    <div class="col-sm-6">
+        <!-- Widget Trade  LEFT ITEM-->
+
+        <div class="widget-container boxed">
+            <div class="widget-title">
+                <span class="trade-rate">Looking for</span>
+            </div>
+        </div>
+
+        {% for item in items %}
+            {% if item.type_id.name == "Buy" %}
+            <div class="widget-container boxed">
+                <div class="widget-title">
+                    <span class="trade-rate">Budget P {{ item.price }}</span>
+                </div>
+                <div class="inner">
+                    <div class="trade-time">Posted by: 
+                        <a href="">
+                            {{ item.user_id.first_name }}
+                        </a>| {{ item.post_date }}</div>
+                    <h4 class="trade-location"><a href="{% url "item_view" item_pk=item.pk %}">{{ item.name }}</a></h4>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <!--/ Widget Trade -->
+
+    </div>
+
+    <div class="col-sm-6">
+        <!-- Widget Trade RIGHT ITEM-->
+
+        <div class="widget-container boxed">
+            <div class="widget-title">
+                <span class="trade-rate">For Sale</span>
+            </div>
+        </div>
+
+        {% for item in items %}
+            {% if item.type_id.name == "Sell" %}
+            <div class="widget-container boxed">
+                <div class="widget-title">
+                    <span class="trade-rate">P {{ item.price }}</span>
+                </div>
+                <div class="inner">
+                    <div class="trade-time">Posted by: 
+                        <a href="">
+                            {{ item.user_id.first_name }}
+                        </a>| {{ item.post_date }}</div>
+                    <h4 class="trade-location"><a href="#">{{ item.name }}</a></h4>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+        <!--/ Widget Trade -->
+
+    </div>
+
+</div>
+<!-- row browse items buy and sell -->
+{% endblock content %}
+</div>
+
+<div class="col-sm-4">
+    {% block avatar %}
+    <!-- Avatar Placeholder -->
+    <div class="widget-container widget_avatar boxed">
+        <div class="avatar-image"><img src="{% static "metrovibesUI/images/temp/avatar-image.jpg" %}" alt="" /></div>
+        <div class="inner clearfix">
+            <div class="avatar"><img src="{% static "metrovibesUI/images/temp/avatar.png" %}" alt="" /></div>
+            <h5>Iligan Buy and Sell</h5>
+            <span class="subtitle">Where online means business.</span>
+        </div>
+        <div class="post-meta-links">
+            <ul class="clearfix">
+                <li class="post-view"><a href="#"><span><i class="icon-post"></i>172</span></a></li>
+                <li class="post-comm"><a href="#"><span><i class="icon-post"></i>34</span></a></li>
+                <li class="post-like"><a href="#"><span><i class="icon-post"></i>210</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!--/ Avatar Placeholder -->
+    {% endblock avatar %}
+    <!-- widget calendar-->
+        <div class="widget-container widget_calendar boxed styled">
+            <div class="inner">
+                <input type="text" name="date_departure" class="inputField" value="" id="date_departure">
+                <script>
+                    // <![CDATA[
+                    jQuery(document).ready(function($) {
+                        var daysRange = 5;
+
+                        function assignCalendar(id){
+                            $('<div class="calendar" />')
+                                    .insertAfter( $(id) )
+                                    .multiDatesPicker({
+                                        dateFormat: 'yy-mm-dd',
+                                        minDate: new Date(),
+                                        maxDate: '+1y',
+                                        altField: id,
+                                        firstDay: 1,
+                                        showOtherMonths: true
+                                    }).prev().hide();
+                        }
+
+                        assignCalendar('#date_departure');
+                    });
+                    // ]]>
+                </script>
+            </div>
+        </div>
+        <!--/ widget calendar-->
+
+
+    <!-- row level 2 -->
+    <div class="row">
+        <div class="col-xs-6 col-sm-4 col-md-6"></div>
+        <div class="col-xs-6 col-sm-8 col-md-6">
+            <!-- Ribbons -->
+            <div class="ribbons boxed">
+                <div class="ribbon"><span><em>Sale</em><strong>20%</strong></span></div>
+                <div class="ribbon ribbon-blue"><span><em>Sale</em><strong>50%</strong></span></div>
+            </div>
+            <!--/ Ribbons -->
+        </div>
+    </div>
+    <!--/ row level 2 -->
+
+</div>
+</div>
+<!--/ row -->
+
+<!-- row -->
+<div class="row">
+
+<div class="col-sm-8">
+
+<!-- Tabs -->
+<div class="tabs_framed styled">
+    <ul class="tabs clearfix">
+        <li class="active"><a href="#about" data-toggle="tab">About</a></li>
+        <li><a href="#history" data-toggle="tab">History</a></li>
+        <li><a href="#past" data-toggle="tab">Past</a></li>
+    </ul>
+
+    <div class="tab-content boxed clearfix">
+        <div class="tab-pane fade in active" id="about">
+            <div class="inner clearfix">
+                <div class="tab_image pull-left"><img src="images/temp/tabimage8.png" alt=""></div>
+                <h2><a href="#">Michael Ormond</a></h2>
+                <!-- Rating Stars -->
+                <div class="rating">
+                    <span class="star on"><input type="hidden" value="1"></span><!--
+                                    --><span class="star on"><input type="hidden" value="2"></span><!--
+                                    --><span class="star on"><input type="hidden" value="3"></span><!--
+                                    --><span class="star off"><input type="hidden" value="4"></span><!--
+                                    --><span class="star off"><input type="hidden" value="5"></span>
+                </div>
+                <!--/ Rating Stars -->
+                <div class="tab-text"><p>He made his film debut with a minor part in Back to The Future Part II and then he became very popular.</p></div>
+                <div class="buttons">
+                    <a href="#" class="btn"><span>Normal</span></a>
+                    <a href="#" class="btn hover"><span>Hover</span></a>
+                    <a href="#" class="btn active"><span>Pressed</span></a>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn btn-left"><span>&nbsp;&nbsp;Left&nbsp;</span></a>
+                    <a href="#" class="btn btn-green"><span>Change</span></a>
+                    <a href="#" class="btn btn-right"><span>Right&nbsp;</span></a>
+                </div>
+            </div>
+            <div class="bottom clearfix">
+                <div class="tagcloud pull-right">
+                    <a href="#" class="tag-link-1" title="2 topics"><span>Web Design</span></a>
+                    <a href="#" class="tag-link-2" title="3 topics"><span>Illustration</span></a>
+                    <a href="#" class="tag-link-3" title="5 topics"><span>Fashion Style</span></a>
+                    <a href="#" class="tag-link-4" title="8 topics"><span>Typography</span></a>
+                    <a href="#" class="tag-link-5" title="9 topics"><span>Interface</span></a>
+                    <a href="#" class="tag-link-6" title="3 topics"><span>High resolution</span></a>
+                </div>
+                <h3>Tags</h3>
+                <p>He made his film debut with a minor part in Back to The Future Part II</p>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="history">
+            <div class="inner clearfix">
+                <div class="tab_image pull-right"><img src="images/temp/tabimage9.png" alt=""></div>
+                <h2><a href="#">Elijah Wood</a></h2>
+                <!-- Rating Stars -->
+                <div class="rating">
+                    <span class="star on"><input type="hidden" value="1"></span><!--
+                                    --><span class="star on"><input type="hidden" value="2"></span><!--
+                                    --><span class="star on"><input type="hidden" value="3"></span><!--
+                                    --><span class="star on"><input type="hidden" value="4"></span><!--
+                                    --><span class="star off"><input type="hidden" value="5"></span>
+                </div>
+                <!--/ Rating Stars -->
+                <div class="tab-text"><p>He made his film debut with a minor part in Back to The Future Part II and then he became very popular.</p></div>
+                <div class="buttons">
+                    <a href="#" class="btn"><span>Normal</span></a>
+                    <a href="#" class="btn hover"><span>Hover</span></a>
+                    <a href="#" class="btn active"><span>Pressed</span></a>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn btn-left"><span>&nbsp;&nbsp;Left&nbsp;</span></a>
+                    <a href="#" class="btn btn-green"><span>Change</span></a>
+                    <a href="#" class="btn btn-right"><span>Right&nbsp;</span></a>
+                </div>
+            </div>
+            <div class="bottom clearfix">
+                <div class="tagcloud pull-left">
+                    <a href="#" class="tag-link-1" title="2 topics"><span>Web Design</span></a>
+                    <a href="#" class="tag-link-2" title="3 topics"><span>Illustration</span></a>
+                    <a href="#" class="tag-link-3" title="5 topics"><span>Fashion Style</span></a>
+                    <a href="#" class="tag-link-4" title="8 topics"><span>Typography</span></a>
+                    <a href="#" class="tag-link-5" title="9 topics"><span>Interface</span></a>
+                    <a href="#" class="tag-link-6" title="3 topics"><span>High resolution</span></a>
+                </div>
+                <h3>Tags</h3>
+                <p>He made his film debut with a minor part in Back to The Future Part II</p>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="past">
+            <div class="inner clearfix">
+                <div class="tab_image pull-left"><img src="images/temp/tabimage10.png" alt=""></div>
+                <h2><a href="#">John Carpenter</a></h2>
+                <!-- Rating Stars -->
+                <div class="rating">
+                    <span class="star on"><input type="hidden" value="1"></span><!--
+                                    --><span class="star on"><input type="hidden" value="2"></span><!--
+                                    --><span class="star on"><input type="hidden" value="3"></span><!--
+                                    --><span class="star on"><input type="hidden" value="4"></span><!--
+                                    --><span class="star off"><input type="hidden" value="5"></span>
+                </div>
+                <!--/ Rating Stars -->
+                <div class="tab-text"><p>He made his film debut with a minor part in Back to The Future Part II and then he became very popular.</p></div>
+                <div class="buttons">
+                    <a href="#" class="btn"><span>Normal</span></a>
+                    <a href="#" class="btn hover"><span>Hover</span></a>
+                    <a href="#" class="btn active"><span>Pressed</span></a>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn btn-left"><span>&nbsp;&nbsp;Left&nbsp;</span></a>
+                    <a href="#" class="btn btn-green"><span>Change</span></a>
+                    <a href="#" class="btn btn-right"><span>Right&nbsp;</span></a>
+                </div>
+            </div>
+            <div class="bottom clearfix">
+                <div class="tagcloud pull-left">
+                    <a href="#" class="tag-link-1" title="2 topics"><span>Web Design</span></a>
+                    <a href="#" class="tag-link-2" title="3 topics"><span>Illustration</span></a>
+                    <a href="#" class="tag-link-3" title="5 topics"><span>Fashion Style</span></a>
+                    <a href="#" class="tag-link-4" title="8 topics"><span>Typography</span></a>
+                    <a href="#" class="tag-link-5" title="9 topics"><span>Interface</span></a>
+                    <a href="#" class="tag-link-6" title="3 topics"><span>High resolution</span></a>
+                </div>
+                <h3>Tags</h3>
+                <p>He made his film debut with a minor part in Back to The Future Part II</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ Tabs -->
+
+</div>
+</div>
+<!--/ row -->
+
+</div>
+<!--/ content -->
+
+</div>
+<!--/ container -->
+
+</body>
+</html>

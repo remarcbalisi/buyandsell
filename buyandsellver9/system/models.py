@@ -116,3 +116,10 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    # %Y for year
+    def date_posted(self):
+        return self.post_date.strftime("%d")
+
+    def month_posted(self):
+        return self.post_date.strftime("%b")

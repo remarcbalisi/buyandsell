@@ -18,34 +18,47 @@
         </div>
         <!-- /.row -->
 
-        <!-- Project One -->
-        {% for item in items %}
-        <div class="row">
-
-            <div class="col-md-12">
-              <a class="" href="{% url 'item_view' item_pk=item.pk %}">
-
+        <!-- buy column -->
+        <div class="col-xs-6">
+        <h2 class="page-header">Looking For</h2>
+            {% for item in items %}
+            <div class="row">
+            {% if item.type_id.name == "Buy" %}
+            <a class="" href="{% url 'item_view' item_pk=item.pk %}">
                 <h3>{{ item }} (Type: {{ item.type_id.name }})
                   <span class="glyphicon glyphicon-chevron-right"></span>
                 </h3>
 
-              </a>
+            </a>
 
-                {% if item.type_id.name == "Buy" %}
-                <p>Budget: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
-                {% endif %}
+            <p>Budget: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p> 
 
-                {% if item.type_id.name == "Sell" %}
-                <p>Price: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
-                {% endif %}
-                
+            {% endif %}
             </div>
-
+            {% endfor %}
         </div>
-        <!-- /.row -->
-        <hr>
-        {% endfor %}
 
+        <!--sell column -->
+        <div class="col-xs-6">
+        <h2 class="page-header">For Sale</h2>
+            {% for item in items %}
+            <div class="row">
+            {% if item.type_id.name == "Sell" %}
+            <a class="" href="{% url 'item_view' item_pk=item.pk %}">
+                <h3>{{ item }} (Type: {{ item.type_id.name }})
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                </h3>
+
+            </a>
+
+            <p>Price: {{ item.price }} | Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
+                
+
+            {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+<!-- endcolumn -->
 
         <!-- Pagination -->
         <div class="row text-center">
