@@ -23,7 +23,7 @@
                             class="icon-user"></i> {{user.first_name}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="javascript:;">Profile</a></li>
-              <li><a href="javascript:;">Logout</a></li>
+              <li><a href="{% url "user_logout" %}">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -107,7 +107,7 @@
 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Recent News</h3>
+              <h3> Recent Posts</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -115,8 +115,8 @@
               {% for item in items %}
                 <li>
                   <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">Thursday Roundup # 40</a>
-                    <p class="news-item-preview"> This is our web design and development news series where we share our favorite design/development related articles, resources, tutorials and awesome freebies. </p>
+                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">{{item.user_id.first_name}} posted {{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
                   </div>
                   
                 </li>
