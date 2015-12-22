@@ -1,95 +1,75 @@
 {% extends "system/user_home.html" %}
+{% load staticfiles %}
 
 {% block title %}
-<title>Ibs| Browse</title>
+<title>Ibs| Browse by Type</title>
 {% endblock title %}
 
-
 {% block content %}
-    <!-- Page Content -->
+<div class="main">
+  <div class="main-inner">
     <div class="container">
+      <div class="row">
 
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-6">
-                <h1 class="page-header">BROWSE ITEMS
-                </h1>
+        <div class="span12">
+
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3>Browse Items</h3>
             </div>
-        </div>
-        <!-- /.row -->
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+              {% if item.type_id.name == "Buy" %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >{{item.user_id.first_name}}</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
 
-        <!-- buy column -->
-        <div class="col-xs-6">
-        <h2 class="page-header">Looking For</h2>
-            {% for item in items %}
-            <div class="row">
-            {% if item.type_id.name == "Buy" %}
-            <a class="" href="{% url 'item_view' item_pk=item.pk %}">
-                <h3>{{ item }} (Type: {{ item.type_id.name }})
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                </h3>
+               {% for item in items %}
+               {% if item.type_id.name == "Sell" %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >{{item.user_id.first_name}}</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
 
-            </a>
+               {% for item in items %}
+               {% if item.category_id.name == category.name %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >{{item.user_id.first_name}}</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
 
-            <p>Budget: {{ item.price }} Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p> 
-
-            {% endif %}
+              </ul>
             </div>
-            {% endfor %}
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
         </div>
+        <!-- /span6 -->
 
-        <!--sell column -->
-        <div class="col-xs-6">
-        <h2 class="page-header">For Sale</h2>
-            {% for item in items %}
-            <div class="row">
-            {% if item.type_id.name == "Sell" %}
-            <a class="" href="{% url 'item_view' item_pk=item.pk %}">
-                <h3>{{ item }} (Type: {{ item.type_id.name }})
-                  <span class="glyphicon glyphicon-chevron-right"></span>
-                </h3>
-
-            </a>
-
-            <p>Price: {{ item.price }} | Posted by: <a href="{% url 'user_view' user_pk=item.user_id.pk %}">{{item.user_id.first_name}} {{item.user_id.last_name}}</a></p>
-                
-
-            {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-<!-- endcolumn -->
-
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- /.row -->
-
+      </div>
+      <!-- /row --> 
     </div>
-    <!-- /.container -->
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
 {% endblock content %}

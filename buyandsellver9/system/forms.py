@@ -24,3 +24,9 @@ class CommentForm(forms.ModelForm):
 	class Meta:
 		model = Comment
 		fields = ['comment']
+
+class CategoryForm(forms.ModelForm):
+
+	class Meta:
+		model = Category
+		fields = ['name']

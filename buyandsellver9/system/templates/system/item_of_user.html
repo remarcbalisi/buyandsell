@@ -6,34 +6,86 @@
 {% endblock title %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <h1>My Posts</h1>
-      {% for item in items %}
-        <div class="col-sm-3">
-            <h3 style="color:#4ba8ff">
-                {{ item }}
-            </h3>
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
 
-            {% if item.type_id.name == 'Buy' %}
-              <h5>Status: Looking for</h5>
-              <h5>Buyer: {{ item.user_id.first_name }} {{ item.user_id.last_name }}</h5>
-              <h5>Budget: Php {{ item.price }}</h5>
-            {% endif %}
+                  {% if success %}
+                    <div class="alert alert-success">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>Success!</strong> {{ success }}
+                    </div>
+                  {% endif %}
 
-            {% if item.type_id.name == 'Sell' %}
-              <h5>Status: {{ item.type_id }}</h5>
-              <h5>Seller: {{ item.user_id.first_name }} {{ item.user_id.last_name }}</h5>
-              <h5>Price: Php {{ item.price }}</h5>
-            {% endif %}
+                  {% if exist %}
+                  <div class="alert alert-warning">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Warning!</strong> {{ exist }}
+                  </div>
+                  {% endif %}
+        <div class="span6">
 
-            <h5>{{ item.post_date }}</h5>
-            <a href="{% url "item_view" item_pk=item.pk %}">
-              <button type="submit" class="btn btn-default">Check</button>
-            </a>
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3>My posts| Looking For</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+              {% if item.type_id.name == "Buy" %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >You</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a><a href="{% url "item_update" item_pk=item.pk %}"> |<i class="icon-pencil"> Update</i></a><a href="{% url "item_delete" item_pk=item.pk %}"> |<i class="icon-trash"> Delete</i></a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
         </div>
-      {% endfor %}
+        <!-- /span6 -->
+
+        <div class="span6">
+
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3>My posts| For Sale</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+              {% if item.type_id.name == "Sell" %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >You</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a><a href=""> |<i class="icon-pencil">Update</i></a><a href="{% url "item_delete" item_pk=item.pk %}"> |<i class="icon-trash"> Delete</i></a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 -->
+
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
 </div>
-      
-</div>
+<!-- /main -->
 {% endblock content %}

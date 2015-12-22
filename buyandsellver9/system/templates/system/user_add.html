@@ -25,20 +25,21 @@
           
           <div class="widget-content">
             <br>
-            {% if success %}
-                                    <div class="alert alert-success">
-                                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                      <strong>Success!</strong> {{ success }}
-                                    </div>
-                                  {% endif %}
-
-                                  {% if exist %}
-                                  <div class="alert alert-warning">
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                    <strong>Warning!</strong> {{ exist }}
-                                  </div>
-                                  {% endif %}
                 <form method="POST" class="form-inline" role="form">
+                  {% if success %}
+              <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{ success }}
+              </div>
+            {% endif %}
+
+            {% if exist %}
+            <div class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Warning!</strong> {{ exist }}
+            </div>
+            {% endif %}
+                  
                             {% csrf_token %}
                           <div class="form-group">
                             <input name="fname" type="text" class="form-control" placeholder=" first name" required>

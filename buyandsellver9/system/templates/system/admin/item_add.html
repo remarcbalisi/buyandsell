@@ -1,0 +1,39 @@
+{% extends "system/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Add item</title>
+{% endblock title %}
+
+{% block landingpage %}
+{% endblock landingpage %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ post_type }} item</h2>
+    <form method="POST" class="form-inline" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <input name="name" type="text" class="form-control" placeholder=" item name" required>
+      </div><br>
+      <div class="form-group">
+        <textarea cols="50" rows="5" name="description" type="text" class="form-control" placeholder=" description..." required></textarea>
+      </div><br>
+      <div class="form-group">
+        <input name="price" type="number" class="form-control" placeholder="Php (price/budget)" required>
+      </div>
+      <div class="form-group">
+        <label >Category:</label>
+        <select name="category_id" required>
+          {% for category in categories %}
+          <option value="{{ category.pk }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <input name="stuff_image" type="file">
+      </div><br>
+      <button type="submit" class="btn btn-default">Post</button>
+    </form>
+</div>
+{% endblock content %}

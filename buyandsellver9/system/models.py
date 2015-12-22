@@ -113,6 +113,7 @@ class Item(models.Model):
     type_id = models.ForeignKey('Type', null=True, blank=True)
     user_id = models.ForeignKey('User', null=True, blank=True)
     post_date = models.DateTimeField(blank = True, null = True)
+    ranking_id = models.ForeignKey('Ranking', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -123,3 +124,16 @@ class Item(models.Model):
 
     def month_posted(self):
         return self.post_date.strftime("%b")
+
+class Ranking(models.Model):
+    item_rank = models.DateTimeField(blank = True, null = True)
+
+    def __str__(self):
+        return "%s" %(self.item_rank)
+
+    def init(self):
+        self.item_rank = timezone.now()
+        self.save()
+
+    def __unicode__(self):
+       return self.item_rank

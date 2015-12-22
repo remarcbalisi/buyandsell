@@ -20,7 +20,7 @@
               <h5>Category: {{ item.category_id }}</h5>
               <h5>Posted: {{ item.post_date }}</h5>
               <h5>Buyer: 
-                <a href="#">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+                <a href="{% url "user_view" user_pk=item.user_id.pk %}">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
               </h5>
               <h5>Budget: Php {{ item.price }}</h5>
             {% endif %}
@@ -30,7 +30,7 @@
               <h5>Category: {{ item.category_id }}</h5>
               <h5>Posted: {{ item.post_date }}</h5>
               <h5>Seller: 
-                <a href="#">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+                <a href="{% url "user_view" user_pk=item.user_id.pk %}">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
               </h5>
               <h5>Price: Php {{ item.price }}</h5>
             {% endif %}

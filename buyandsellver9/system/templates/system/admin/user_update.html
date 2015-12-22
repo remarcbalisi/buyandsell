@@ -1,0 +1,148 @@
+{% extends "system/admin/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Update</title>
+{% endblock title %}
+
+{% block content %}
+<div class="main">
+  
+  <div class="main-inner">
+
+      <div class="container">
+  
+        <div class="row">
+          
+          <div class="span12">          
+            
+            <div class="widget ">
+              
+              <div class="widget-header">
+                <i class="icon-user"></i>
+                <h3>Register</h3>
+            </div> <!-- /widget-header -->
+          
+          <div class="widget-content">
+            <br>
+                <form method="POST" class="form-inline" role="form">
+                  {% if success %}
+              <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{ success }}
+              </div>
+            {% endif %}
+
+            {% if exist %}
+            <div class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Warning!</strong> {{ exist }}
+            </div>
+            {% endif %}
+                  
+                            {% csrf_token %}
+                          <div class="form-group">
+                            <input name="fname" type="text" class="form-control" value="{{user.first_name}}" required>
+                          </div>
+                          <div class="form-group">
+                            <input name="lname" type="text" class="form-control" value=" {{user.last_name}}" required>
+                          </div><br>
+                          <div class="form-group">
+                            <input name="contact_number" type="text" class="form-control" value="{{user.contact_number}}" required>
+                          </div>
+                          <div class="form-group">
+                            <input name="email" type="email" class="form-control" value="{{user.email}}" id="mail" onkeyup="checkMail(); return false;" required>
+                          </div>
+                          <span id="confirmMail" class="confirmMessage"></span><br>
+
+                          <div class="form-group">
+                            <input name="password" type="password" class="form-control" placeholder=" password" id="pass1" required>
+                          </div>
+
+                          <div class="form-group">
+                            <input name="password" type="password" class="form-control" placeholder=" re-enter password" id="pass2" onkeyup="checkPass(); return false;" required>
+                          </div>
+                          <span id="confirmMessage" class="confirmMessage"></span><br>
+
+                          <button type="submit" class="btn btn-common" id="submit_button">Update</button>
+                </form>
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+            
+        </div> <!-- /span8 -->
+          
+          
+          
+          
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+      
+  </div> <!-- /main-inner -->
+    
+</div> <!-- /main -->
+
+
+<!--script-->
+  <script type="text/javascript">
+    function checkPass(){
+      //Store the password field objects into variables ...
+      var pass1 = document.getElementById('pass1');
+      var pass2 = document.getElementById('pass2');
+      //Store the Confimation Message Object ...
+      var message = document.getElementById('confirmMessage');
+      //Set the colors we will be using ...
+      var goodColor = "#b6ffc7";
+      var goodColor_font = "#66cc66"
+      var badColor = "#ffdada";
+      var badColor_font = "#ff3f3f";
+      //Compare the values in the password field 
+      //and the confirmation field
+      if(pass1.value == pass2.value){
+          //The passwords match. 
+          //Set the color to the good color and inform
+          //the user that they have entered the correct password 
+          pass2.style.backgroundColor = goodColor;
+          message.style.color = goodColor_font;
+          message.innerHTML = "Passwords Match!"
+          document.getElementById("submit_button").disabled = false;
+      }
+
+      else{
+          //The passwords do not match.
+          //Set the color to the bad color and
+          //notify the user.
+          pass2.style.backgroundColor = badColor;
+          message.style.color = badColor_font;
+          message.innerHTML = "Passwords Do Not Match!"
+          document.getElementById("submit_button").disabled = true;
+      }
+    }
+
+    function checkMail(){
+      //for checking a valid mail
+      var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      var mail = document.getElementById('mail');
+      var message_mail = document.getElementById('confirmMail');
+
+      var goodColor = "#b6ffc7";
+      var goodColor_font = "#66cc66"
+      var badColor = "#ffdada";
+      var badColor_font = "#ff3f3f";
+
+      if(mail.value.match(mailformat)){
+        message_mail.innerHTML = "valid mail!"
+        mail.style.backgroundColor = goodColor;
+        message_mail.style.color = goodColor_font;
+      }  
+      else{
+        message_mail.innerHTML = "Invalid mail"
+        mail.style.backgroundColor = badColor;
+        message_mail.style.color = badColor_font;
+      }
+    }
+
+  </script>
+{% endblock content %}

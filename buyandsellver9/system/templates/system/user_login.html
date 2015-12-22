@@ -1,45 +1,106 @@
-{% extends "system/index2.html" %}
+{% extends "system/index3.html" %}
 {% load staticfiles %}
 
 {% block title %}
 <title>Ibs| Login</title>
 {% endblock title %}
 
+{% block navbar %}
+  <div class="navbar navbar-fixed-top">
+  
+  <div class="navbar-inner">
+    
+    <div class="container">
+      
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      
+      <a class="brand" href="index.html">
+        Iligan Buy and Sell        
+      </a>    
+      
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          
+          <li class="">           
+            <a href="{% url "user_add" %}" class="">
+              Don't have an account?
+            </a>
+            
+          </li>
+          
+          <li class="">           
+            <a href="{% url "index" %}" class="">
+              <i class="icon-chevron-left"></i>
+              Back to Homepage
+            </a>
+            
+          </li>
+        </ul>
+        
+      </div><!--/.nav-collapse -->  
+  
+    </div> <!-- /container -->
+    
+  </div> <!-- /navbar-inner -->
+  
+</div> <!-- /navbar -->
+{% endblock navbar %}
+
 {% block content %}
-    <section id="home-slider">
-        <div class="container">
-            <div class="row">
-                <div class="main-slider">
-                    <div class="slide-text">
-                        <h4>{{ failed }}</h4>
-                        <h2>Log-in</h2>
-                        <form method="post" class="form-inline" role="form">
-                        {% csrf_token %}
-                          <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder=" myemail@example.com" required>
-                          </div><br>
-                          <div class="form-group">         
-                            <input type="password" class="form-control" placeholder=" password" name="password" required>
-                          </div><br>
-                          <div class="form-group">        
-                            <button type="submit" class="btn btn-common" id="submit_button" href="{% url "user_login" %}">Log in</button>
-                          </div><br>
-                          <div class="form-group">        
-                            <p href="" style="font-size:16px">Not registered? <a href="{% url "user_add" %}">Sign up now</a></p>
-                          </div>
-                        </form>
-                    </div>
+<div class="account-container">
+  
+  <div class="content clearfix">
+    
+    <form action="{% url "user_login" %}" method="post">
 
-                    <img src="{% static "ibsUIver2/images/home/slider/hill.png" %}" class="slider-hill" alt="slider image">
-                    <img src="{% static "ibsUIver2/images/home/slider/house.png" %}" class="slider-house" alt="slider image">
-                    <img src="{% static "ibsUIver2/images/home/slider/sun.png" %}" class="slider-sun" alt="slider image">
-                    <img src="{% static "ibsUIver2/images/home/slider/birds1.png" %}" class="slider-birds1" alt="slider image">
-                    <img src="{% static "ibsUIver2/images/home/slider/birds2.png" %}" class="slider-birds2" alt="slider image">
-
-                </div>
-            </div>
+      {% if success %}
+        <div class="alert alert-success">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong> {{ success }}
         </div>
-        <div class="preloader"><i class="fa fa-sun-o fa-spin"></i></div>
-    </section>
-    <!--/#home-slider-->
+      {% endif %}
+
+      {% if exist %}
+      <div class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Warning!</strong> {{ exist }}
+      </div>
+      {% endif %}
+
+    {% csrf_token %}
+      <h1>Member Login</h1>   
+      
+      <div class="login-fields">
+        
+        <p>Please provide your details</p>
+        
+        <div class="field">
+          <label for="username">Email</label>
+          <input type="email" id="username" name="email" value="" placeholder="Email" class="login username-field" />
+        </div> <!-- /field -->
+        
+        <div class="field">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+        </div> <!-- /password -->
+        
+      </div> <!-- /login-fields -->
+      
+      <div class="login-actions">
+                  
+        <button type="submit" class="button btn btn-success btn-large">Sign In</button>
+        
+      </div> <!-- .actions -->
+      
+      
+      
+    </form>
+    
+  </div> <!-- /content -->
+  
+</div> <!-- /account-container -->
 {% endblock content %}

@@ -1,0 +1,141 @@
+{% extends "system/admin/index3.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Home</title>
+{% endblock title %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="{% url "user_home" %}">Iligan Buy and Sell Admin </a>
+      <div class="nav-collapse">
+        <ul class="nav pull-right">
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-cog"></i> Account <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url "user_update" %}">Update</a></li>
+              <li><a href="javascript:;">Help</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-user"></i> {{user.first_name}} <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url "user_view" user_pk=user.pk %}">Profile</a></li>
+              <li><a href="{% url "user_logout" %}">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="navbar-search pull-right">
+          <input type="text" class="search-query" placeholder="Search">
+        </form>
+      </div>
+      <!--/.nav-collapse --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /navbar-inner --> 
+</div>
+<!-- /navbar -->
+
+<div class="subnavbar">
+  <div class="subnavbar-inner">
+    <div class="container">
+      <ul class="mainnav">
+        <li class="active"><a href="{% url "user_home" %}"><i class="icon-home"></i><span>Home</span> </a> </li>
+        <li class="active"><a href="{% url "user_add" %}"><i class="shortcut-icon icon-user"></i><span>Add user</span> </a> </li>
+        <li class="active"><a href="{% url "category_add" %}"><i class="shortcut-icon icon-list-alt"></i><span>Add category</span> </a> </li>
+        <li class="active"><a href="{% url "category_view" %}"><i class="shortcut-icon icon-picture"></i><span>View all category</span> </a> </li>
+      </ul>
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /subnavbar-inner --> 
+</div>
+<!-- /subnavbar -->
+{% endblock navbar %}
+
+{% block content %}
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+
+        <div class="span6">
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> Today's Stats</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <div id="big_stats" class="cf">
+                    <div class="stat"> <i class="icon-user"></i> <span class="value">{{user_count}}</span> </div>
+                    <!-- .stat -->
+
+                    
+                    <div class="stat"> <i class="icon-bullhorn"></i> <span class="value">{{post_count}}</span> </div>
+                    <!-- .stat --> 
+                  </div>
+                </div>
+                <!-- /widget-content --> 
+                
+              </div>
+            </div>
+          </div>
+          <!-- /widget -->
+
+        </div>
+        <!-- /span6 -->
+        <div class="span6">
+          <div class="widget">
+            <div class="widget-header"> <i class="icon-bookmark"></i>
+              <h3>Important Shortcuts</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
+                                        class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
+                                            class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
+                                                class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
+                                                    class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
+              <!-- /shortcuts --> 
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> Recent Posts</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">{{item.user_id.first_name}} posted {{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+{% endblock content %}

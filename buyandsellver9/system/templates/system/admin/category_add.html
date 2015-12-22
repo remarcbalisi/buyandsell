@@ -1,0 +1,66 @@
+{% extends "system/admin/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Add Category</title>
+{% endblock title %}
+
+{% block content %}
+<div class="main">
+  
+  <div class="main-inner">
+
+      <div class="container">
+  
+        <div class="row">
+          
+          <div class="span12">          
+            
+            <div class="widget ">
+              
+              <div class="widget-header">
+                <i class="icon-user"></i>
+                <h3>Add Category</h3>
+            </div> <!-- /widget-header -->
+          
+          <div class="widget-content">
+            <br>
+                <form method="POST" class="form-inline" role="form">
+                  {% if success %}
+              <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!</strong> {{ success }}
+              </div>
+            {% endif %}
+
+            {% if exist %}
+            <div class="alert alert-warning">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>Warning!</strong> {{ exist }}
+            </div>
+            {% endif %}
+                  
+                            {% csrf_token %}
+                          <div class="form-group">
+                            <input name="name" type="text" class="form-control" placeholder="category name" required>
+                          </div>
+                          <button type="submit" class="btn btn-common" id="submit_button">Add</button>
+                </form>
+            
+          </div> <!-- /widget-content -->
+            
+        </div> <!-- /widget -->
+            
+        </div> <!-- /span8 -->
+          
+          
+          
+          
+        </div> <!-- /row -->
+  
+      </div> <!-- /container -->
+      
+  </div> <!-- /main-inner -->
+    
+</div> <!-- /main -->
+{% endblock content %}

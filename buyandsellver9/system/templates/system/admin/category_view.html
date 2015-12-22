@@ -1,0 +1,56 @@
+{% extends "system/admin/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| View Category</title>
+{% endblock title %}
+
+{% block content %}
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+
+        <div class="span12">
+          <div class="widget">
+            <div class="widget-header"> <i class="icon-bookmark"></i>
+              <h3>All Categories</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="shortcuts">
+
+              	{% if success %}
+	              <div class="alert alert-success">
+	                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	                <strong>Success!</strong> {{ success }}
+	              </div>
+	            {% endif %}
+
+	            {% if exist %}
+	            <div class="alert alert-warning">
+	              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	              <strong>Warning!</strong> {{ exist }}
+	            </div>
+	            {% endif %}
+              	
+              	{% for category in categories %}
+              	<p class="shortcut"><span>{{category.name}}</span></p><a href="{% url "category_delete" category_pk=category.pk %}"><i class="icon-trash"></i></a>
+              	{% endfor %}
+              </div>
+              <!-- /shortcuts --> 
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 --> 
+      </div>
+      <!-- /row --> 
+    </div>
+    <!-- /container --> 
+  </div>
+  <!-- /main-inner --> 
+</div>
+<!-- /main -->
+{% endblock content %}

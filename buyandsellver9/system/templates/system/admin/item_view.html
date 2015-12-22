@@ -1,0 +1,75 @@
+{% extends "system/user_home.html" %}
+{% load staticfiles %}
+
+{% block title %}
+<title>Ibs| Item view</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+
+      <div class="row">
+        <div class="col-md-5">
+            <h1>
+                {{ item }}
+            </h1>
+
+            {% if item.type_id.name == 'Buy' %}
+              <h5>Status: Looking for</h5>
+              <h5>Category: {{ item.category_id }}</h5>
+              <h5>Posted: {{ item.post_date }}</h5>
+              <h5>Buyer: 
+                <a href="{% url "user_view" user_pk=item.user_id.pk %}">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+              </h5>
+              <h5>Budget: Php {{ item.price }}</h5>
+            {% endif %}
+
+            {% if item.type_id.name == 'Sell' %}
+              <h5>Status: {{ item.type_id }}</h5>
+              <h5>Category: {{ item.category_id }}</h5>
+              <h5>Posted: {{ item.post_date }}</h5>
+              <h5>Seller: 
+                <a href="{% url "user_view" user_pk=item.user_id.pk %}">{{ item.user_id.first_name }} {{ item.user_id.last_name }}</a>
+              </h5>
+              <h5>Price: Php {{ item.price }}</h5>
+            {% endif %}
+
+            <h5>Contact #: {{ item.user_id.contact_number }}</h5>
+            <h5>Email: {{ item.user_id.email }}</h5><br>
+            <h5>Description:</h5>
+            <p>{{ item.description }}</p>
+        </div>
+
+        <div class="col-md-7">
+          {% if image.stuff_image %}
+            <p><img src="/static/ibsUIver2/images/uploads/{{ image.stuff_image }}" width="200" length="200"/></p>
+          {% endif %}
+        </div>
+
+    </div>
+
+    <div class="row">
+      <h3>Comments:</h3>
+      {% for comment in comments %}
+        {% for user in users %}
+          {% if comment.user_id == user %}
+            <h5><a href="{% url 'user_view' user_pk=user.pk %}">{{ user.first_name }} {{ user.last_name }}</a> says: {{comment.comment}}</h5>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+
+              <hr>
+
+        <form method="POST" class="form-inline" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea cols="50" rows="1" name="comment" type="text" class="form-control" placeholder=" type here..." required></textarea>
+        </div><br>
+        <button type="submit" class="btn btn-default">Post Comment</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

@@ -9,20 +9,20 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html">Iligan Buy and Sell Admin </a>
+                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="{% url "index" %}">Iligan Buy and Sell</a>
       <div class="nav-collapse">
         <ul class="nav pull-right">
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                             class="icon-cog"></i> Account <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:;">Settings</a></li>
+              <li><a href="{% url "user_update" %}">Update</a></li>
               <li><a href="javascript:;">Help</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
                             class="icon-user"></i> {{user.first_name}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:;">Profile</a></li>
+              <li><a href="{% url "user_view" user_pk=user.pk %}">Profile</a></li>
               <li><a href="{% url "user_logout" %}">Logout</a></li>
             </ul>
           </li>
@@ -43,8 +43,36 @@
   <div class="subnavbar-inner">
     <div class="container">
       <ul class="mainnav">
-        <li class="active"><a href="index.html"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-        <li><a href="reports.html"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>
+        <li class="active"><a href="{% url "index" %}"><i class="icon-home"></i><span>Home</span> </a> </li>
+        <li class="active"><a href="{% url "item_of_user" %}"><i class="icon-list-alt"></i><span>My items</span> </a></li>
+        <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-tag"></i><span>Post Item</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            {% for type in types %}
+            <li><a href="{% url "item_add" type_pk=type.pk %}">{{type}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-tag"></i><span>Browse Items by Type</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url "item_browse" %}">All</a></li>
+            {% for type in types %}
+              {% if type.name == "Buy" %}
+                <li><a href="{% url "item_browse_bytype" type_pk=type.pk %}">Looking For</a></li>
+              {% endif %}
+              {% if type.name == "Sell" %}
+                <li><a href="{% url "item_browse_bytype" type_pk=type.pk %}">For Sale</a></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="active dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-tag"></i><span>Browse Items by Category</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url "item_browse" %}">All</a></li>
+            {% for category in categories %}
+              <li><a href="{% url "item_browse_bycategory" category_pk=category.pk %}">{{category}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
       </ul>
     </div>
     <!-- /container --> 
@@ -61,65 +89,24 @@
       <div class="row">
 
         <div class="span6">
-          <div class="widget widget-nopad">
-            <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Today's Stats</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div class="widget big-stats-container">
-                <div class="widget-content">
-                  <div id="big_stats" class="cf">
-                    <div class="stat"> <i class="icon-user"></i> <span class="value">{{user_count}}</span> </div>
-                    <!-- .stat -->
-
-                    
-                    <div class="stat"> <i class="icon-bullhorn"></i> <span class="value">{{post_count}}</span> </div>
-                    <!-- .stat --> 
-                  </div>
-                </div>
-                <!-- /widget-content --> 
-                
-              </div>
-            </div>
-          </div>
-          <!-- /widget -->
-
-        </div>
-        <!-- /span6 -->
-        <div class="span6">
-          <div class="widget">
-            <div class="widget-header"> <i class="icon-bookmark"></i>
-              <h3>Important Shortcuts</h3>
-            </div>
-            <!-- /widget-header -->
-            <div class="widget-content">
-              <div class="shortcuts"> <a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-list-alt"></i><span
-                                        class="shortcut-label">Apps</span> </a><a href="javascript:;" class="shortcut"><i
-                                            class="shortcut-icon icon-bookmark"></i><span class="shortcut-label">Bookmarks</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-signal"></i> <span class="shortcut-label">Reports</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-comment"></i><span class="shortcut-label">Comments</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-user"></i><span
-                                                class="shortcut-label">Users</span> </a><a href="javascript:;" class="shortcut"><i
-                                                    class="shortcut-icon icon-file"></i><span class="shortcut-label">Notes</span> </a><a href="javascript:;" class="shortcut"><i class="shortcut-icon icon-picture"></i> <span class="shortcut-label">Photos</span> </a><a href="javascript:;" class="shortcut"> <i class="shortcut-icon icon-tag"></i><span class="shortcut-label">Tags</span> </a> </div>
-              <!-- /shortcuts --> 
-            </div>
-            <!-- /widget-content --> 
-          </div>
-          <!-- /widget -->
 
           <div class="widget widget-nopad">
             <div class="widget-header"> <i class="icon-list-alt"></i>
-              <h3> Recent Posts</h3>
+              <h3> Looking For</h3>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
               <ul class="news-items">
               {% for item in items %}
+              {% if item.type_id.name == "Buy" %}
                 <li>
                   <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
-                  <div class="news-item-detail"> <a href="http://www.egrappler.com/thursday-roundup-40/" class="news-item-title" target="_blank">{{item.user_id.first_name}} posted {{item}}</a>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >{{item.user_id.first_name}}</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a>
                     <p class="news-item-preview">{{item.description}}</p>
                   </div>
                   
                 </li>
+               {% endif %}
                {% endfor %}
               </ul>
             </div>
@@ -127,7 +114,36 @@
           </div>
           <!-- /widget -->
         </div>
-        <!-- /span6 --> 
+        <!-- /span6 -->
+
+        <div class="span6">
+
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> For Sale</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+              {% for item in items %}
+              {% if item.type_id.name == "Sell" %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{item.date_posted}}</span> <span class="news-item-month">{{item.month_posted}}</span> </div>
+                  <div class="news-item-detail"> <a href="{% url "user_view" user_pk=item.user_id.pk %}" class="news-item-title" >{{item.user_id.first_name}}</a> posted <a href="{% url "item_view" item_pk=item.pk %}">{{item}}</a>
+                    <p class="news-item-preview">{{item.description}}</p>
+                  </div>
+                  
+                </li>
+               {% endif %}
+               {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content --> 
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 -->
+
       </div>
       <!-- /row --> 
     </div>
