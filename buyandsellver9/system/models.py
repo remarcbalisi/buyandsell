@@ -76,7 +76,7 @@ class Image(models.Model):
     item_id = models.ForeignKey('Item', null=True, blank=True)
 
     def __unicode__(self):
-	   return self.title
+	   return "%s" %(self.title)
         
     class Meta:
         ordering = ['title']

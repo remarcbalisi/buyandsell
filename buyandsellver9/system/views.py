@@ -263,37 +263,21 @@ def item_update(request, item_pk):
 
 	if request.method == "POST":
 		form = ItemForm(request.POST, instance=item)
-		form_image = ImageForm(request.POST, request.FILES, instance=image)
+		form_image = ImageForm(request.FILES, instance=image)
 
 		if form.is_valid() and form_image.is_valid():
-			#saving the form to image and item image
-			item = form.save()
-			item_image = form_image.save()
+			model = form.save(commit=False)
+			image = form_image.save(commit=False)
 
-			item.save()
-			item_image.save()
-
-			item.post_date = timezone.now()
-			#get the user. instance
-			item_user = User.objects.get(id=user.pk)
-			#get the type. instance
-			item_type = Type.objects.get(id=post_type.pk)
-			#save the Item attribute(user_id) as the id of the selected user
-			item.user_id = item_user
-			#save the Item attribute(user_id) as the id of the selected user
-			item.type_id = item_type
-			item.save()
+			model.post_date = timezone.now()
+			model.save()
+			image.save()
+			image.item_id = model
+			image.save()
 
 			rank = Ranking.objects.create(item_rank=timezone.now())
-			item.ranking_id = rank
-			item.save()
-
-			#setting the image
-			#get the item instance
-			this_item = Item.objects.get(id=item.pk)
-			item_image.title = item.name
-			item_image.item_id = this_item
-			item_image.save()
+			model.ranking_id = rank
+			model.save()
 			return redirect('system.views.user_home')
 
 		else:
@@ -303,8 +287,10 @@ def item_update(request, item_pk):
 	else:
 		categories = Category.objects.all()
 		types = Type.objects.all()
+		form = ItemForm(instance=item)
+		image_form = ImageForm(instance=image)
 		return render(request, 'system/item_update.html', {'categories': categories, 
-														'types': types, 'image':image, 'item':item})
+														'types': types, 'image':image, 'item':item, 'form':form, 'image_form':image_form})
 
 @login_required
 def item_delete(request, item_pk):
