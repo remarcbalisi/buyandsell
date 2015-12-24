@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'buyandsellver9.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ibsdb',
+        'NAME': 'ibsdb2',
         'USER': 'postgres',
         'PASSWORD': 'remarc@15',
         'HOST': '127.0.0.1',
