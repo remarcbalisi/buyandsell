@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'buyandsellver9.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ibsdb2',
+        'NAME': 'ibsdb',
         'USER': 'postgres',
         'PASSWORD': 'remarc@15',
         'HOST': '127.0.0.1',
@@ -93,7 +93,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC+08:00'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

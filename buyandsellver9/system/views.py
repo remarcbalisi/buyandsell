@@ -11,7 +11,7 @@ def index(request):
 		return redirect('system.views.user_home')
 
 	else:
-		items = Item.objects.all().order_by('ranking_id')
+		items = Item.objects.all().order_by('-ranking_id')
 		return render(request, 'system/index3.html', {'items':items})
 
 def about(request):
