@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.utils import timezone
 from django.contrib.auth import authenticate, login, logout
-from .forms import UserForm, ItemForm, ImageForm, CommentForm, CategoryForm
-from .models import User, Item, Type, Image, Category, Comment, Ranking
+from .forms import UserForm, ItemForm, ImageForm, CommentForm, CategoryForm, MessageForm
+from .models import User, Item, Type, Image, Category, Comment, Ranking, Recipient
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 
@@ -361,46 +361,59 @@ def item_browse_bycategory(request, category_pk):
 														 'items': items, 'category':category, 'categories':categories})
 
 #this method display the item (from browse) of the selected item.
-@login_required
-def item_view(request, item_pk):
+def item_view(request, item_pk, user_pk):
 
-	user = User.objects.get(pk=request.user.id)
-	users = User.objects.all()
-	item = get_object_or_404(Item, pk=item_pk)
-	comments = Comment.objects.all().filter(item_id=item_pk).order_by('-post_comment')
+	if request.user.is_authenticated():
+		user = User.objects.get(pk=request.user.id)
+		users = User.objects.all()
+		item = get_object_or_404(Item, pk=item_pk)
+		comments = Comment.objects.all().filter(item_id=item_pk).order_by('-post_comment')
 
-	if request.method == 'POST':
-		form = CommentForm(request.POST)
-		print "request is post"
+		if request.method == 'POST':
+			form = CommentForm(request.POST)
+			print "request is post"
 
-		if form.is_valid():
-			comment = form.save()
-			comment.save()
-			comment.item_id = item
-			comment.user_id = user
-			comment.publish()
-			comment.save()
-			rank = Ranking.objects.create(item_rank=timezone.now())
-			item.ranking_id = rank
-			item.save()
+			if form.is_valid():
+				comment = form.save()
+				comment.save()
+				comment.item_id = item
+				comment.user_id = user
+				comment.publish()
+				comment.save()
+				rank = Ranking.objects.create(item_rank=timezone.now())
+				item.ranking_id = rank
+				item.save()
 
+				types = Type.objects.all()
+				image = get_object_or_404(Image, item_id=item_pk)
+				return render(request, 'system/item_view.html', {'user': user, 'types': types, 
+															 	 'item': item, 'image': image,
+															 	 'comments': comments,
+															 	 'users': users})
+
+		if user.is_admin:
+			return redirect('system.views.user_home')
+
+		elif not user.is_admin:
 			types = Type.objects.all()
 			image = get_object_or_404(Image, item_id=item_pk)
 			return render(request, 'system/item_view.html', {'user': user, 'types': types, 
-														 	 'item': item, 'image': image,
-														 	 'comments': comments,
-														 	 'users': users})
+															 'item': item, 'image': image,
+															 'comments': comments,
+															 'users': users})
 
-	if user.is_admin:
-		return redirect('system.views.user_home')
+	elif not request.user.is_authenticated() and request.method == 'POST':
+		return redirect('system.views.user_login')
 
-	elif not user.is_admin:
+	else:
 		types = Type.objects.all()
 		image = get_object_or_404(Image, item_id=item_pk)
-		return render(request, 'system/item_view.html', {'user': user, 'types': types, 
-														 'item': item, 'image': image,
-														 'comments': comments,
-														 'users': users})
+		item = get_object_or_404(Item, pk=item_pk)
+		user = get_object_or_404(User, pk=user_pk)
+		users = User.objects.all()
+		comments = Comment.objects.all()
+		return render(request, 'system/item_view.html', {'user': user, 'types': types, 'item': item, 'image': image,
+														 'comments': comments,'users': users})
 
 @login_required
 def item_of_user(request):
@@ -471,3 +484,19 @@ def category_delete(request, category_pk):
 
 	except:
 		return redirect('system.views.item_of_user')
+
+@login_required
+def message(request, recipient_pk, item_pk):
+	try:
+		recipient = Recipient.objects.all().filter(pk=recipient_pk)
+		sender = get_object_or_404(User, pk=request.user.pk)
+		item = get_object_or_404(Item, pk=item_pk)
+		thread = get_object_or_404(user_id=sender, recipient_id=recipient[0])
+
+		if request.method == 'POST' and recipient[0] is not None:
+			form = MessageForm(request.POST)
+
+			if form.is_valid():
+				message = form.save()
+				message.user_id = sender
+				message.recipient_id = recipient[0]
