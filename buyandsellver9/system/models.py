@@ -137,3 +137,36 @@ class Ranking(models.Model):
 
     def __unicode__(self):
        return self.item_rank
+
+class Message(models.Model):
+    text_message = models.TextField()
+    message_created = models.DateTimeField(auto_now_add=True)
+    #user_id is the sender of the message
+    user_id = models.ForeignKey('User', blank=True, null=True)
+    recipient_id = models.ForeignKey('Recipient', blank=True, null=True)
+    thread_id = models.ForeignKey('Thread', blank=True, null=True)
+    has_read = models.BooleanField(default=False)
+    read_time = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return "%s %s" %(self.user_id, self.message_created)
+
+    def seen(self):
+        self.has_read = True
+        self.read_time = timezone.now()
+        self.save()
+
+class Recipient(models.Model):
+    user_id = models.ForeignKey('User', blank=True, null=True)
+
+    def __str__(self):
+        return self.user_id
+
+class Thread(models.Model):
+    #user_id is the sender
+    user_id = models.ForeignKey('User', blank=True, null=True)
+    recipient_id = models.ForeignKey('Recipient', blank=True, null=True)
+    thread_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "%s %s" %(self.user_id, self.thread_created)
